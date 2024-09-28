@@ -71,6 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('student-section').style.display = 'none';
         document.getElementById('subjects').style.display = 'none';
         document.getElementById('login-section').style.display = 'block';
+
+        // Reset the access code input for new login
+        document.getElementById('access-code').value = '';
     });
 
     // Handle adding homework
