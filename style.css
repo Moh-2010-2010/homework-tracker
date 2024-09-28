@@ -11,14 +11,44 @@ form {
 input {
     margin-right: 10px;
 }
-.subject-item {
-    display: inline-block;
-    margin-right: 15px;
-    padding: 5px 10px;
-    border: 1px solid #333;
-    border-radius: 5px;
+#admin-section, #student-section, #subjects {
+    display: none; /* Hide sections initially */
 }
-.subject-item.highlight {
+img {
+    max-width: 150px; /* Adjust size as needed */
+    margin-bottom: 20px;
+}
+.subject-button {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #333;
+    background-color: #fff;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    width: 150px;
+    display: inline-block;
+}
+.subject-button.highlight {
     background-color: red;
     color: white;
+}
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+ul li {
+    padding: 5px;
+}
+.subject-link {
+    font-size: 14px;
+    color: #0066cc;
+    display: block;
+}
+.subject-container {
+    display: flex;  /* Flexbox to arrange items horizontally */
+    flex-wrap: wrap; /* Allows wrapping if the screen is too small */
+    justify-content: space-around; /* Evenly space buttons */
+    margin-top: 20px;
 }
