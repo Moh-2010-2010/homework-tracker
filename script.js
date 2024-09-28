@@ -49,12 +49,14 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('login-section').style.display = 'none';
             document.getElementById('admin-section').style.display = 'block';
             document.getElementById('student-section').style.display = 'block';
+            document.getElementById('subjects').style.display = 'block';
             alert(`Welcome, Admin!`);
             displayHomework();
         } else if (userName) {
             document.getElementById('login-section').style.display = 'none';
             document.getElementById('admin-section').style.display = 'none'; // Hide admin section
             document.getElementById('student-section').style.display = 'block';
+            document.getElementById('subjects').style.display = 'block';
             alert(`Welcome, ${userName}!`);
             displayHomework();
         } else {
@@ -62,13 +64,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Add event listener to the logo to return to login screen
+    document.getElementById('logo').addEventListener('click', () => {
+        // Hide all sections and show login screen
+        document.getElementById('admin-section').style.display = 'none';
+        document.getElementById('student-section').style.display = 'none';
+        document.getElementById('subjects').style.display = 'none';
+        document.getElementById('login-section').style.display = 'block';
+    });
+
     // Handle adding homework
     document.getElementById('add-homework-form').addEventListener('submit', (e) => {
         e.preventDefault();
         const title = document.getElementById('homework-title').value;
+        const subject = document.getElementById('homework-subject').value;
         const dueDate = document.getElementById('due-date').value;
-        homeworkList.push({ title, dueDate });
-        saveHomework(); // Save to localStorage
+        homeworkList.push({ title, subject, dueDate });
+        saveHomework();
         displayHomework();
         e.target.reset();
     });
@@ -78,11 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const name = document.getElementById('student-name').value;
         const code = document.getElementById('student-code').value;
-
-        // Add the new student to the students array
         students.push({ name, code });
-        saveStudents(); // Save students to localStorage
-        
+        saveStudents();
         e.target.reset();
         alert(`Student ${name} added with access code ${code}`);
     });
