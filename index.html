@@ -9,32 +9,56 @@
             font-family: Arial, sans-serif;
             margin: 20px;
         }
-        #admin-section, #student-section, #subjects-section, #teachers-section {
-            display: none; /* Hide sections initially */
+        h1, h2 {
+            color: #333;
         }
         form {
             margin-bottom: 20px;
+        }
+        input {
+            margin-right: 10px;
+        }
+        #admin-section, #student-section, #subjects {
+            display: none; /* Hide sections initially */
         }
         img {
             max-width: 150px; /* Adjust size as needed */
             margin-bottom: 20px;
         }
-        .subject-item {
-            display: inline-block;
-            margin-right: 15px;
-            padding: 5px 10px;
+        .subject-button {
+            display: block;
+            padding: 10px;
+            margin: 5px 0;
             border: 1px solid #333;
-            border-radius: 5px;
+            background-color: #fff;
+            color: #333;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            width: 150px;
         }
-        .subject-item.highlight {
+        .subject-button.highlight {
             background-color: red;
             color: white;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        ul li {
+            padding: 5px;
+        }
+        .subject-link {
+            font-size: 14px;
+            color: #0066cc;
+            display: block;
         }
     </style>
 </head>
 <body>
 
-<img src="school logo.png" alt="Logo">
+<img src="school logo.png" alt="Logo" id="logo" style="cursor: pointer;">
+
 
 <div id="login-section">
     <h2>Login</h2>
@@ -46,6 +70,7 @@
     <h2>Admin Dashboard</h2>
     <form id="add-homework-form">
         <input type="text" id="homework-title" placeholder="Homework Title" required>
+        <input type="text" id="homework-subject" placeholder="Subject (e.g., English, عربي)" required>
         <input type="date" id="due-date" required>
         <button type="submit">Add Homework</button>
     </form>
@@ -61,53 +86,73 @@
     <ul id="homework-list"></ul>
 </div>
 
-<!-- Subjects Section -->
-<div id="subjects-section">
-    <h2>Subjects</h2>
-    <ul id="subjects-list">
-        <li class="subject-item" data-subject="English">English</li>
-        <li class="subject-item" data-subject="عربي">عربي</li>
-        <li class="subject-item" data-subject="علوم">علوم</li>
-        <li class="subject-item" data-subject="رياضيات">رياضيات</li>
-        <li class="subject-item" data-subject="فنية">فنية</li>
-        <li class="subject-item" data-subject="حياتية">حياتية</li>
-        <li class="subject-item" data-subject="مهارات حاسب">مهارات حاسب</li>
-        <li class="subject-item" data-subject="ناقد">ناقد</li>
-        <li class="subject-item" data-subject="اسلاميات">اسلاميات</li>
-    </ul>
+<!-- Subjects Section with Links -->
+<div id="subjects">
+    <h3>Subjects</h3>
+    <div class="subject-container">
+        <div>
+            <button class="subject-button" id="english-subject">English</button>
+            <a href="https://up.nooredu.com/uploads/156295297292811.pdf" target="_blank" class="subject-link">English Homework Link</a>
+        </div>
+        <div>
+            <button class="subject-button" id="arabic-subject">عربي</button>
+            <a href="https://example.com/arabic" target="_blank" class="subject-link">عربي Homework Link</a>
+        </div>
+        <div>
+            <button class="subject-button" id="science-subject">علوم</button>
+            <a href="https://example.com/science" target="_blank" class="subject-link">علوم Homework Link</a>
+        </div>
+        <div>
+            <button class="subject-button" id="math-subject">رياضيات</button>
+            <a href="https://example.com/math" target="_blank" class="subject-link">رياضيات Homework Link</a>
+        </div>
+        <div>
+            <button class="subject-button" id="art-subject">فنية</button>
+            <a href="https://example.com/art" target="_blank" class="subject-link">فنية Homework Link</a>
+        </div>
+        <div>
+            <button class="subject-button" id="life-skills-subject">حياتية</button>
+            <a href="https://example.com/life-skills" target="_blank" class="subject-link">حياتية Homework Link</a>
+        </div>
+        <div>
+            <button class="subject-button" id="computer-skills-subject">مهارات حاسب</button>
+            <a href="https://example.com/computer-skills" target="_blank" class="subject-link">مهارات حاسب Homework Link</a>
+        </div>
+        <div>
+            <button class="subject-button" id="critic-subject">ناقد</button>
+            <a href="https://example.com/critic" target="_blank" class="subject-link">ناقد Homework Link</a>
+        </div>
+        <div>
+            <button class="subject-button" id="islamic-subject">اسلاميات</button>
+            <a href="https://example.com/islamic" target="_blank" class="subject-link">اسلاميات Homework Link</a>
+        </div>
+    </div>
 </div>
 
+
 <!-- Teachers Section -->
-<div id="teachers-section">
-    <h2>Teachers</h2>
-    <ul id="teachers-list">
+<div id="teachers">
+    <h3>Teachers</h3>
+    <ul>
         <li>English: Fatima Stitou</li>
         <li>عربي: Boshra</li>
         <li>علوم: Marouan</li>
         <li>رياضيات: Jana</li>
         <li>اسلاميات: Salah</li>
-        <li>حياتية: fatima stitou</li>
+        <li>حياتية: Salah</li>
     </ul>
 </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const adminCode = '123456789'; // Set admin access code
-        let students = [
-            { name: 'Student 1', code: 'CODE1' },
-            { name: 'Student 2', code: 'CODE2' },
-            { name: 'Student 3', code: 'CODE3' }
-        ];
-
+        let students = [];
         let homeworkList = [];
-        let highlightedSubjects = [];
 
-        // Load homework, students, and highlighted subjects from localStorage
         function loadHomework() {
             const storedHomework = localStorage.getItem('homeworkList');
             if (storedHomework) {
                 homeworkList = JSON.parse(storedHomework);
-                removeExpiredHomework(); // Remove homework past the due date
             }
         }
 
@@ -115,13 +160,6 @@
             const storedStudents = localStorage.getItem('students');
             if (storedStudents) {
                 students = JSON.parse(storedStudents);
-            }
-        }
-
-        function loadHighlightedSubjects() {
-            const storedSubjects = localStorage.getItem('highlightedSubjects');
-            if (storedSubjects) {
-                highlightedSubjects = JSON.parse(storedSubjects);
             }
         }
 
@@ -133,59 +171,75 @@
             localStorage.setItem('students', JSON.stringify(students));
         }
 
-        function saveHighlightedSubjects() {
-            localStorage.setItem('highlightedSubjects', JSON.stringify(highlightedSubjects));
-        }
-
         function checkAccessCode(enteredCode) {
             if (enteredCode === adminCode) {
-                return 'Admin'; // Admin identifier
+                return 'Admin';
             }
-            
             const student = students.find(s => s.code === enteredCode);
             return student ? student.name : null;
+        }
+
+        function highlightSubject(subjectName) {
+            const subjects = document.querySelectorAll('.subject-button');
+            subjects.forEach(button => {
+                if (button.textContent.includes(subjectName)) {
+                    button.classList.add('highlight');
+                }
+            });
+        }
+
+        function displayHomework() {
+            const homeworkListElement = document.getElementById('homework-list');
+            homeworkListElement.innerHTML = '';
+
+            const today = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
+
+            homeworkList = homeworkList.filter(homework => homework.dueDate >= today);
+
+            homeworkList.forEach(homework => {
+                const li = document.createElement('li');
+                li.textContent = `${homework.title} - ${homework.subject} - Due: ${homework.dueDate}`;
+                homeworkListElement.appendChild(li);
+                highlightSubject(homework.subject); // Highlight related subject
+            });
+
+            saveHomework();
         }
 
         // Handle login
         document.getElementById('login-button').addEventListener('click', () => {
             const enteredCode = document.getElementById('access-code').value;
             const userName = checkAccessCode(enteredCode);
-            
+
             if (userName === 'Admin') {
                 document.getElementById('login-section').style.display = 'none';
                 document.getElementById('admin-section').style.display = 'block';
                 document.getElementById('student-section').style.display = 'block';
-                document.getElementById('subjects-section').style.display = 'block';
-                document.getElementById('teachers-section').style.display = 'block';
-                alert(`Welcome, Admin!`);
+                document.getElementById('subjects').style.display = 'block';
+                alert('Welcome, Admin!');
                 displayHomework();
             } else if (userName) {
                 document.getElementById('login-section').style.display = 'none';
-                document.getElementById('admin-section').style.display = 'none'; // Hide admin section
+                document.getElementById('admin-section').style.display = 'none';
                 document.getElementById('student-section').style.display = 'block';
-                document.getElementById('subjects-section').style.display = 'block';
-                document.getElementById('teachers-section').style.display = 'block';
+                document.getElementById('subjects').style.display = 'block';
                 alert(`Welcome, ${userName}!`);
                 displayHomework();
             } else {
                 alert('Invalid access code');
             }
-
-            highlightStoredSubjects(); // Apply previously highlighted subjects
         });
 
         // Handle adding homework
         document.getElementById('add-homework-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const title = document.getElementById('homework-title').value;
+            const subject = document.getElementById('homework-subject').value;
             const dueDate = document.getElementById('due-date').value;
-            homeworkList.push({ title, dueDate });
-            saveHomework(); // Save to localStorage
+            homeworkList.push({ title, subject, dueDate });
+            saveHomework();
             displayHomework();
             e.target.reset();
-
-            // Check and highlight the subject
-            highlightSubject(title);
         });
 
         // Handle adding students
@@ -193,64 +247,14 @@
             e.preventDefault();
             const name = document.getElementById('student-name').value;
             const code = document.getElementById('student-code').value;
-
-            // Add the new student to the students array
             students.push({ name, code });
-            saveStudents(); // Save students to localStorage
-            
+            saveStudents();
             e.target.reset();
             alert(`Student ${name} added with access code ${code}`);
         });
 
-        // Display homework
-        function displayHomework() {
-            const homeworkListElement = document.getElementById('homework-list');
-            homeworkListElement.innerHTML = '';
-            homeworkList.forEach((homework) => {
-                const li = document.createElement('li');
-                li.textContent = `${homework.title} - Due: ${homework.dueDate}`;
-                homeworkListElement.appendChild(li);
-            });
-        }
-
-        // Remove expired homework
-        function removeExpiredHomework() {
-            const currentDate = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
-            homeworkList = homeworkList.filter(homework => homework.dueDate >= currentDate);
-            saveHomework(); // Update localStorage after removal
-            displayHomework(); // Refresh the list after removal
-        }
-
-        // Highlight the subject
-        function highlightSubject(title) {
-            const subjectItems = document.querySelectorAll('.subject-item');
-            subjectItems.forEach(item => {
-                const subjectName = item.getAttribute('data-subject').toLowerCase();
-                if (title.toLowerCase().includes(subjectName)) {
-                    item.classList.add('highlight');
-                    if (!highlightedSubjects.includes(subjectName)) {
-                        highlightedSubjects.push(subjectName);
-                        saveHighlightedSubjects(); // Save highlighted subjects
-                    }
-                }
-            });
-        }
-
-        // Highlight subjects from localStorage after login
-        function highlightStoredSubjects() {
-            const subjectItems = document.querySelectorAll('.subject-item');
-            subjectItems.forEach(item => {
-                const subjectName = item.getAttribute('data-subject').toLowerCase();
-                if (highlightedSubjects.includes(subjectName)) {
-                    item.classList.add('highlight');
-                }
-            });
-        }
-
-        // Load homework, students, and highlighted subjects when the page is loaded
         loadStudents();
         loadHomework();
-        loadHighlightedSubjects();
     });
 </script>
 
